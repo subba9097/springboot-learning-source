@@ -1,5 +1,8 @@
 package org.subbumaaya.service.impl;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -47,6 +50,40 @@ public class PersonServiceImpl implements PersonService {
 		PersonResponse personResponse = modelMapper.map(person, PersonResponse.class);
 		personResponse.setPassportResponse(passportResponse);
 		return personResponse;
+	}
+
+	@Override
+	public List<PersonResponse> getPersonsDetails() {
+
+		List<Person> listOfPerson = personRepository.findAll();
+		List<PersonResponse> list = new ArrayList<>();
+
+		for (Person person : listOfPerson) {
+			PassportResponse passportResponse = modelMapper.map(person.getPassport(), PassportResponse.class);
+			PersonResponse personResponse = modelMapper.map(person, PersonResponse.class);
+			personResponse.setPassportResponse(passportResponse);
+			list.add(personResponse);
+		}
+
+		return list;
+//		List<PersonResponse> list = listOfPerson.stream().map(person -> {
+//			PassportResponse passportResponse = modelMapper.map(person.getPassport(), PassportResponse.class);
+//			PersonResponse personResponse = modelMapper.map(person, PersonResponse.class);
+//			personResponse.setPassportResponse(passportResponse);
+//			return personResponse;
+//		}).collect(Collectors.toList());
+//		return list
+	}
+
+	@Override
+	public void deletePersonDetails(Long id) {
+
+		if (!personRepository.existsById(id)) {
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "id not found");
+		}
+
+		personRepository.deleteById(id);
+
 	}
 
 }
