@@ -13,9 +13,9 @@ import lombok.Setter;
 @NoArgsConstructor
 public class ProductRequest {
 	
-	private String name;
+	private String productName;
 	
-	private Double price;
+	private Double productPrice;
 	
 	private List<String> ingridiants;
 	

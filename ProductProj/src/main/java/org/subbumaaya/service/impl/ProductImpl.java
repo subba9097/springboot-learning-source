@@ -2,13 +2,12 @@ package org.subbumaaya.service.impl;
 
 import java.util.List;
 
-import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.subbumaaya.dto.ProductRequest;
 import org.subbumaaya.dto.ProductResponse;
-import org.subbumaaya.dtoConversions.ProductConversion;
 import org.subbumaaya.entity.Product;
 import org.subbumaaya.exception.ProductAlreadyExistsException;
+import org.subbumaaya.mapper.ProductMapper;
 import org.subbumaaya.repository.ProductRepository;
 import org.subbumaaya.service.ProductService;
 
@@ -19,8 +18,10 @@ import lombok.RequiredArgsConstructor;
 public class ProductImpl implements ProductService {
 
 	private final ProductRepository productRepository;
+	
+	private final ProductMapper productMapper;
 
-	private final ModelMapper modelMapper;
+//	private final ModelMapper modelMapper;
 
 	@Override
 	public ProductResponse getProduct(Long id) {
@@ -35,14 +36,17 @@ public class ProductImpl implements ProductService {
 	@Override
 	public ProductResponse addProduct(ProductRequest productRequest) {
 
-		if (productRepository.existsByName(productRequest.getName())) {
+		if (productRepository.existsByName(productRequest.getProductName())) {
 			throw new ProductAlreadyExistsException("product already exists");
 		}
-		Product product = modelMapper.map(productRequest, Product.class);
+		
+		Product product = productMapper.toProduct(productRequest);
+//		Product product = modelMapper.map(productRequest, Product.class);
 
 		Product savedProduct = productRepository.save(product);
 
-		return modelMapper.map(savedProduct, ProductResponse.class);
+//		return modelMapper.map(savedProduct, ProductResponse.class);
+		return productMapper.toProductResposne(savedProduct);
 
 //		Product product = productConversion.productRequestToProduct(productRequest);
 //		 return productConversion.productToProductResponse(savedProduct);

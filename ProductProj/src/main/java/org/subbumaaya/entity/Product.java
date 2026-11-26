@@ -26,16 +26,16 @@ public class Product {
 	@Column(name = "product_id")
 	private Long id;
 	
-	@Column(name = "product_name" , nullable = false ,unique = true)
+	@Column(name = "product_name" ,unique = true)
 	private String name;
 	
-	@Column(name = "product_price" , nullable =  false)
+	@Column(name = "product_price")
 	private Double price;
 	
-	@Column(name = "product_ingridiants" , nullable = false)
+	@Column(name = "product_ingridiants")
 	private List<String> ingridiants;
 	
-	@Column(name = "product_expiry" ,nullable = false)
+	@Column(name = "product_expiry")
 	private String expiryDate;
 
 }
