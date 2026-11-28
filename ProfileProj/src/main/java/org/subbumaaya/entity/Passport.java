@@ -2,11 +2,13 @@ package org.subbumaaya.entity;
 
 import java.time.LocalDate;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -34,5 +36,8 @@ public class Passport {
 
 	@Column(name = "age", nullable = false)
 	private Integer age;
+	
+	@OneToOne(mappedBy = "passport" , cascade = CascadeType.PERSIST)
+	private Person person;
 
 }

@@ -1,5 +1,6 @@
 package org.subbumaaya.dto;
 
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
@@ -25,6 +26,7 @@ public class PersonRequest {
 	@Pattern(regexp = "^[6-9][0-9]{9}$", message = "Invalid Mobile number")
 	private String phoneNumber;
 
+	@Valid
 	private PassportRequest passportRequest;
 
 }

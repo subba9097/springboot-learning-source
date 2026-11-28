@@ -2,6 +2,7 @@ package org.subbumaaya.dto;
 
 import java.time.LocalDate;
 
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Positive;
@@ -24,5 +25,8 @@ public class PassportRequest {
 	
 	@Positive(message = "age must be positive")
 	private Integer age;
+	
+	@Valid
+	private PersonRequest personRequest;
 
 }

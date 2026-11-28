@@ -12,11 +12,15 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class PassportResponse {
+	
+	private Long id;
 
 	private String passportNumber;
 
 	private LocalDate validity;
 
 	private Integer age;
+	
+	private PersonResponse personResponse;
 
 }
